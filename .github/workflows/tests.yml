@@ -1,0 +1,16 @@
+name: Test Suites
+on: [push, pull_request]
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Secrets scan
+        run: python3 build/secrets_scan.py
+      - name: Run consolidated test suite
+        run: |
+          cd tests
+          node zec-poker-all-tests.js
