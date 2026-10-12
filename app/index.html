@@ -444,7 +444,7 @@ body{font-family:'DM Sans',sans-serif;color:#e8f5e8;touch-action:manipulation}
 /* ═══════════════════ MODALS ═══════════════════ */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.87);display:none;align-items:center;justify-content:center;z-index:500;backdrop-filter:blur(4px);padding:16px}
 .overlay.show{display:flex}
-.modal-box{background:linear-gradient(150deg,#0a1a0c,#050e07);border:1px solid rgba(212,168,67,.18);border-radius:16px;width:100%;max-width:390px;max-height:88vh;overflow-x:hidden;overflow-y:auto;box-shadow:0 40px 80px rgba(0,0,0,.8)}
+.modal-box{background:linear-gradient(150deg,#0a1a0c,#050e07);border:1px solid rgba(212,168,67,.18);border-radius:16px;width:100%;max-width:min(24.4rem,96vw);max-height:88vh;overflow-x:hidden;overflow-y:auto;box-shadow:0 40px 80px rgba(0,0,0,.8)}
 .modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;border-bottom:1px solid rgba(212,168,67,.08)}
 .modal-title{font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--gold);letter-spacing:.04em}
 .modal-close{background:none;border:none;color:var(--text3);font-size:1.2rem;cursor:pointer;padding:4px 8px}
@@ -548,8 +548,8 @@ body{font-family:'DM Sans',sans-serif;color:#e8f5e8;touch-action:manipulation}
 .wal-row{cursor:pointer;transition:all .12s;border-radius:6px}
 .wal-row:hover{background:rgba(212,168,67,.07)}
 .wal-row.sel{background:rgba(212,168,67,.14);box-shadow:inset 0 0 0 1px rgba(212,168,67,.45)}
-.wal-actions{display:flex;gap:8px;margin:4px 0 8px}
-.wal-actions .btn{flex:1;min-width:0}
+.wal-actions{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 8px}
+.wal-actions .btn{flex:1 1 auto;min-width:0;white-space:nowrap}
 .wal-form{display:flex;flex-direction:column;gap:7px;margin:8px 0}
 .wal-in{width:100%;background:rgba(0,0,0,.45);border:1px solid rgba(212,168,67,.28);border-radius:7px;padding:9px 11px;color:var(--text);font-family:var(--mono);font-size:.72rem;-webkit-appearance:none}
 .wal-in:focus{outline:none;border-color:var(--gold)}
@@ -852,7 +852,7 @@ body{font-family:'DM Sans',sans-serif;color:#e8f5e8;touch-action:manipulation}
 
 <!-- Buy-in Modal -->
 <div class="overlay" id="buyinOverlay" onclick="if(event.target===this)this.classList.remove('show')">
-  <div class="modal-box" style="max-width:340px">
+  <div class="modal-box" style="max-width:min(21.25rem,96vw)">
     <div class="modal-hdr">
       <div class="modal-title" id="biTitle">Buy in</div>
       <button class="modal-close" onclick="document.getElementById('buyinOverlay').classList.remove('show')">✕</button>
@@ -1023,7 +1023,7 @@ body{font-family:'DM Sans',sans-serif;color:#e8f5e8;touch-action:manipulation}
 
 <!-- DJ Panel -->
 <div class="overlay" id="djOverlay" onclick="if(event.target===this)this.classList.remove('show')">
-  <div class="modal-box" style="max-width:420px">
+  <div class="modal-box" style="max-width:min(26.25rem,96vw)">
     <div class="modal-hdr">
       <div class="modal-title">🎧 Table DJ</div>
       <button class="modal-close" onclick="document.getElementById('djOverlay').classList.remove('show')">✕</button>
@@ -1066,7 +1066,7 @@ body{font-family:'DM Sans',sans-serif;color:#e8f5e8;touch-action:manipulation}
 
 <!-- Custom felt art: local only, scanned and re-encoded in this browser -->
 <div class="overlay" id="feltOverlay" onclick="if(event.target===this)this.classList.remove('show')">
-  <div class="modal-box" style="max-width:420px">
+  <div class="modal-box" style="max-width:min(26.25rem,96vw)">
     <div class="modal-hdr">
       <div class="modal-title">🖼 Your table felt</div>
       <button class="modal-close" onclick="document.getElementById('feltOverlay').classList.remove('show')">✕</button>
@@ -1089,7 +1089,7 @@ body{font-family:'DM Sans',sans-serif;color:#e8f5e8;touch-action:manipulation}
 
 <!-- Mainnet not yet available (preview build) -->
 <div class="overlay" id="mainnetWarn" onclick="if(event.target===this)this.classList.remove('show')">
-  <div class="modal-box" style="max-width:340px">
+  <div class="modal-box" style="max-width:min(21.25rem,96vw)">
     <div class="modal-hdr">
       <div class="modal-title">Mainnet</div>
       <button class="modal-close" onclick="document.getElementById('mainnetWarn').classList.remove('show')">✕</button>
@@ -1103,7 +1103,7 @@ body{font-family:'DM Sans',sans-serif;color:#e8f5e8;touch-action:manipulation}
 
 <!-- Leave confirmation -->
 <div class="overlay" id="leaveConfirm" onclick="if(event.target===this)this.classList.remove('show')">
-  <div class="modal-box" style="max-width:320px">
+  <div class="modal-box" style="max-width:min(20rem,96vw)">
     <div class="modal-hdr">
       <div class="modal-title">Leave table?</div>
       <button class="modal-close" onclick="document.getElementById('leaveConfirm').classList.remove('show')">✕</button>
