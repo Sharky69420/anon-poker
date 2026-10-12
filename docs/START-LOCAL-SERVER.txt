@@ -1,0 +1,38 @@
+ANON POKER - HOW TO MAKE PHANTOM CONNECT
+=========================================
+
+WHY IT DID NOTHING
+Phantom only injects its wallet into pages served from:
+  - https://  (any secure website)
+  - http://localhost  or  http://127.0.0.1
+It never injects into a file you double-click (address bar starts with file:///)
+or into plain http:// sites. Browser = Edge makes no difference. The page
+cannot see Phantom, so nothing pops up. This is a Phantom rule, not a bug
+you can fix with a browser setting.
+
+OPTION A (RECOMMENDED) - NETLIFY DROP, ~2 minutes, gives an https link
+1. Make a new empty folder, e.g. "anon-poker-site".
+2. Copy zec-poker-preview.html into it and RENAME it to:  index.html
+3. Open https://app.netlify.com/drop in Edge (free account/sign-in).
+4. Drag the FOLDER onto the page. You get a link like https://something.netlify.app
+5. Open that link in Edge. Click "Connect Phantom". Phantom's popup appears.
+6. Helius key: in the Helius dashboard, if you restricted the key by domain,
+   add your netlify.app address to the allowed domains, otherwise deposits
+   (balance / confirmation checks) can be refused.
+
+OPTION B - LOCALHOST (needs Python installed)
+1. Put zec-poker-preview.html in a folder and rename it to index.html
+2. Open that folder in File Explorer, click the address bar, type  cmd  and press Enter.
+3. Run:   py -m http.server 8080
+4. In Edge open:   http://localhost:8080
+5. Stop the server later with Ctrl+C in the black window.
+   If Helius is domain-restricted, allow  localhost  as well.
+
+CHECKLIST ONCE IT LOADS
+- Phantom is unlocked and set to Devnet (Settings > Developer Settings > Testnet Mode > Solana Devnet).
+- Click Connect Phantom, approve the connect popup, then approve the "sign message" popup.
+- Get devnet SOL: https://faucet.solana.com
+
+ZCASH TESTNET (for the Zcash row)
+- Faucet: https://faucet.zecpages.com/
+- Guide:  https://zechub.wiki/using-zcash/testnet

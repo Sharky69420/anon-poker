@@ -1,0 +1,56 @@
+ANON POKER - DEPLOY THE PAYOUT SERVICE (Cloudflare, free, ~10 minutes)
+=====================================================================
+What it is: a tiny server that holds the HOUSE devnet key and pays out.
+The key lives only inside Cloudflare as a secret. It is never in the web page.
+DEVNET ONLY.
+
+BEFORE YOU START - have these ready
+  * Your Netlify site address, exactly, e.g.  https://your-site.netlify.app   (no slash at the end)
+  * The file  secrets/house-devnet-keypair.json  (open it in Notepad; you will copy ALL of its text)
+  * Your Helius devnet URL:  https://devnet.helius-rpc.com/?api-key=YOUR_KEY
+
+STEP 1 - Account
+  1. Go to https://dash.cloudflare.com and sign up (free).
+
+STEP 2 - Storage for the ledger
+  1. Left menu: Storage & Databases > KV.
+  2. Click "Create a namespace". Name it:  anon-poker-ledger   > Add.
+
+STEP 3 - Create the worker
+  1. Left menu: Workers & Pages > Create > Create Worker.
+  2. Name it  anon-poker-payout  > Deploy.
+  3. Click "Edit code". Select everything in the editor, delete it.
+  4. Open  payout-worker.bundle.js  (from the worker folder; it is ONE file with the engine and bots inside) in Notepad, copy ALL, paste into the editor.
+  5. Click Deploy. Note the address shown, like  https://anon-poker-payout.YOURNAME.workers.dev
+
+STEP 4 - Connect the ledger
+  1. Worker page > Settings > Bindings > Add > KV namespace.
+  2. Variable name:  LEDGER   (capitals, exactly)    Namespace: anon-poker-ledger   > Deploy.
+
+STEP 5 - Secrets and settings
+  Worker page > Settings > Variables and Secrets > Add. Add three:
+  1. Type SECRET, name  HOUSE_SECRET   value = the whole text of house-devnet-keypair.json
+     (it looks like  [12,34,...]  with 64 numbers, including the square brackets)
+  2. Type SECRET, name  RPC_URL        value = your Helius devnet URL
+  3. Type TEXT,   name  ALLOW_ORIGIN   value = your Netlify address (no trailing slash)
+  Then click Deploy.
+
+STEP 6 - Fund the house wallet (devnet)
+  The house pays the network fee and the payouts. Check it has devnet SOL:
+  https://explorer.solana.com/address/2FDJo5xz9QAhFJS4hs8nuF6HG8odvbcuB4cY5NzKRVPf?cluster=devnet
+  If the balance is low, airdrop at https://faucet.solana.com (paste that address, Devnet).
+
+STEP 7 - Tell me the worker address
+  Send me the  https://anon-poker-payout.YOURNAME.workers.dev  address and your exact
+  Netlify address. I put the worker address into the page, test, and send you the new file.
+  Then re-upload to Netlify as before.
+
+HOW IT BEHAVES
+  * Deposits: after Phantom confirms, the page tells the worker; the worker re-checks the
+    transaction on-chain itself and credits the ledger once per transaction.
+  * Withdrawals: you sign a message in Phantom; the worker verifies it is really you, that the
+    request is fresh and unused, and that the ledger covers it, then sends SOL from the house.
+  * Ledger = verified deposits minus withdrawals. Hand winnings are NOT in the ledger yet
+    (hands are simulated in the page). That is the known gap; see the reply notes.
+
+NEVER: paste HOUSE_SECRET into chat, commit it, or put it in the page.
