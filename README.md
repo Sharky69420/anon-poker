@@ -11,7 +11,7 @@ Live demo (devnet/testnet): https://anonpoker.netlify.app
 
 ## DISCLOSURE: what existed before the hackathon
 
-Judging covers work done **Sep 14 - Oct 12, 2026**. To be fully transparent:
+To be fully transparent:
 
 **Built BEFORE Sep 14, 2026 (pre-existing):**
 - The poker engine (hand evaluation, betting rounds, side pots, all-in run-outs)
