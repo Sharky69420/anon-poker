@@ -16,8 +16,8 @@ To be fully transparent:
 **Built BEFORE Sep 14, 2026 (pre-existing):**
 - The poker engine (hand evaluation, betting rounds, side pots, all-in run-outs)
 - The full game UI (single HTML file, embedded art)
-- The provably-fair commit/reveal verifier (SHA-256 deck commitment, seed revealed after the hand)
-- An earlier suite of 26 test files and a Zcash/Zano design document, from the Common S3nse hackathon (Amsterdam, Sep 4-5, 2026), where this project was first shown
+- The provably-fair commit/reveal verifier (SHA-256 commitment to the server's secret seed, revealed after the hand)
+- An earlier suite of 18 test files and a Zcash/Zano design document, from the Common S3nse hackathon (Amsterdam, Sep 4-5, 2026), where this project was first shown
 - The Business Source License and early README
 
 **Built DURING the hackathon (Sep 14 - Oct 12, 2026):**
@@ -31,7 +31,23 @@ To be fully transparent:
 - Two independent adversarial reviews of the worker/engine and of the page client; their findings and our fixes are listed under Known limits
 - Repo tooling: secrets scan, CI, this documentation
 
-The git history starts with a **baseline commit that is the pre-existing project, imported as-is** (the first commit necessarily contains everything that existed before). Later commits add the hackathon work. Because the app is a single HTML file, the hackathon changes to `app/index.html` are in one large commit, so line-level history for that file is approximate. See `COMMIT-PLAN.md`. Commit dates are the real dates they were made; nothing is backdated.
+**About this repository's git history (please read):**
+- The pre-existing baseline lives in a separate repository, [github.com/Sharky69420/AnonPoker](https://github.com/Sharky69420/AnonPoker), as a single commit dated **Sep 2, 2026** (`29f0577`, "Add files via upload"). That is the real, dated "before" state. It is an earlier prototype: it has no Solana, Phantom, worker or Zcash-payment code. (Its About text describes older plans, including Zano, that are not part of this submission.)
+- **This repository's first commit (`0db0726`, Oct 12, 2026, message "Hackathon submission: Anon Poker") imports the whole project in one go: the pre-existing parts and the hackathon work together.** Its message therefore overstates what is hackathon work. There is no separate baseline commit here. An earlier version of this README said there was; that was wrong.
+- All commit dates here are **upload dates (Oct 12, 2026), not development dates.** The hackathon work was developed over Sep 14 - Oct 12 in a local workspace and uploaded in one session, so the history looks like a short burst. Nothing is backdated.
+- Because the single-file app was uploaded as a whole, GitHub cannot show a line-level diff between the baseline and the hackathon version. The table below gives the comparison instead.
+- Other evidence of the timeline: Netlify and Cloudflare Worker deploy history, and the Solana devnet transactions from live testing.
+
+## What changed since the Sep 2 baseline
+
+| | Baseline (`AnonPoker`, Sep 2, 2026) | This repo (Oct 12, 2026) |
+|---|---|---|
+| App (`index.html` / `app/index.html`) | 4,145 lines, 1.73 MB | 6,183 lines, 1.86 MB |
+| Phantom / Solana code | none | Phantom sign-in, devnet deposit, signed buy-in / cash-out / withdraw, Memo anchoring |
+| Server | none (everything in the page) | `worker/` (Cloudflare Worker, KV ledger, server-run engine and bots; about 1,000 lines) |
+| Zcash | design document only | ZIP-321 testnet payment request in the page |
+| Tests | 18 per-file scripts | consolidated runner plus `tests/suites/` (Solana, Phantom, ledger, server engine, bots, Zcash, Memo, felt upload, browser suites) |
+| Other | | secrets scan, CI workflow, felt-upload hardening, DJ volume control |
 
 Note: `docs/SETTLEMENT-DESIGN.md` is a stale pre-hackathon design and is marked as such.
 
